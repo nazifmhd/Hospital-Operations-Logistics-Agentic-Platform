@@ -407,12 +407,53 @@ VALIDATION-REPORT.md
 FINAL-VALIDATION-REPORT.md
 CLEANUP-SUMMARY.md
 SYSTEM-READY-REPORT.md
+AGENTS_TAB_STATUS.md
 
 # Temporary validation files
 *validation*.py
 test-*.py
+test_*.py
 comprehensive-validation.py
 system-validation.py
+
+# Development test files
+test_agents_api.py
+test_agents_functionality.py
+api-test.html
+*Test.tsx
+*test.tsx
+
+# Development markdown files
+SETUP-INSTRUCTIONS.md
+GIT-REPOSITORY-GUIDE.md
+
+# Development scripts and utilities
+debug_*.py
+temp_*.py
+scratch_*.py
+playground_*.py
+validate-system.py
+start-api-only.py
+
+# Development batch files (Windows)
+quick-setup.bat
+setup-python310.bat
+start-backend.bat
+start-frontend.bat
+start-platform.bat
+
+# System validation and test files
+comprehensive-validation.py
+system-validation.py
+test-agents.py
+test-api-endpoints.py
+test-connections.py
+test-system.py
+
+# IDE workspace files
+*.code-workspace
+.vscode/settings.json
+.vscode/launch.json
 
 # Batch files (Windows specific)
 *.bat
@@ -439,3 +480,88 @@ run-full-system.ps1
 
 # Keep documentation
 !docs/
+
+# ============= Additional Unwanted Files =============
+# Duplicate/cleanup files
+*_old.*
+*_new.*
+*_clean.*
+*_backup.*
+*_copy.*
+*_temp.*
+
+# Version control artifacts
+*.orig
+*.rej
+.git/hooks/*
+
+# Editor swap files
+*.swp
+*.swo
+.*.swp
+.*.swo
+
+# Runtime generated files
+runtime/
+cache/
+sessions/
+uploads/
+
+# Development utilities
+dev-*
+debug-*
+scratch-*
+playground-*
+
+# Temporary Python files
+*.pyc
+*.pyo
+*.pyd
+*.so
+*.dll
+
+# OS specific
+.DS_Store?
+Thumbs.db?
+
+# ============= Final Catch-All Patterns =============
+# Any file with 'temp' in name
+*temp*
+*tmp*
+
+# Any file with test in name (unless in tests directory)
+test_*.py
+*_test.py
+test-*.py
+*-test.py
+
+# Development only files
+dev-*.py
+debug-*.py
+demo-*.py
+example-*.py
+sample-*.py
+
+# Generated/compiled files
+*.pyc
+*.pyo  
+*.pyd
+*.so
+*.egg
+*.whl
+
+# IDE files
+.vscode/
+.idea/
+*.iml
+
+# Logs and databases (comprehensive)
+*.log*
+*.db
+*.sqlite*
+
+# Runtime directories
+runtime/
+tmp/
+temp/
+cache/
