@@ -1,6 +1,4 @@
-# Hospital Operations & Logistics Agentic Platform
-
-# Hospital Operations & Logistics Agentic Platform
+# 🏥 Hospital Operations & Logistics Agentic Platform
 
 A professional-grade, production-ready platform for autonomous hospital operations management using an agent-based architecture. The system intelligently manages bed allocation, equipment tracking, staff scheduling, and supply inventory through specialized AI agents.
 
@@ -23,60 +21,100 @@ This platform revolutionizes hospital operations through intelligent automation:
 - **Supply Inventory Agent** - Inventory tracking, demand forecasting, automated ordering
 
 ### Technology Stack
-- **Backend**: Python 3.8+, FastAPI, SQLAlchemy, Pydantic
-- **Frontend**: React 18, TypeScript, Material-UI, React Query
-- **Database**: PostgreSQL, Redis (caching), InfluxDB (time-series)
-- **Message Queue**: Apache Kafka
-- **Monitoring**: Prometheus, Grafana
-- **Deployment**: Docker, Docker Compose
+- **Backend**: Python 3.8+, FastAPI, SQLAlchemy, Pydantic, SQLite
+- **Frontend**: React 18, TypeScript, Material-UI, Vite, Axios
+- **Development**: Node.js, npm, Git
+- **API**: RESTful APIs with OpenAPI documentation
 
 ## 🚀 Quick Start
 
 ### Prerequisites
-- Docker & Docker Compose
-- Python 3.8+ (for development)
-- Node.js 18+ (for frontend development)
-
-### Production Deployment
-
-1. **Clone the repository**
-   ```bash
-   git clone <repository-url>
-   cd Hospital-Operations-Logistics-Agentic-Platform
-   ```
-
-2. **Deploy with Docker**
-   ```bash
-   # Linux/macOS
-   ./scripts/deploy.sh
-   
-   # Windows
-   scripts\deploy.bat
-   ```
-
-3. **Access the platform**
-   - Frontend: http://localhost:3000
-   - API Documentation: http://localhost:8000/docs
-   - Grafana Dashboard: http://localhost:3001
+- Python 3.8+ 
+- Node.js 18+
+- Git
 
 ### Development Setup
 
-1. **Setup development environment**
+1. **Clone the repository**
    ```bash
-   ./scripts/setup-dev.sh
+   git clone <your-repository-url>
+   cd Hospital-Operations-Logistics-Agentic-Platform
    ```
 
-2. **Start backend**
+2. **Setup Backend**
    ```bash
+   # Create virtual environment
+   python -m venv venv
+   
+   # Activate virtual environment
+   # Windows:
+   venv\Scripts\activate
+   # Linux/macOS:
    source venv/bin/activate
-   python src/main.py
+   
+   # Install dependencies
+   pip install -r requirements.txt
    ```
 
-3. **Start frontend**
+3. **Setup Frontend**
    ```bash
+   cd frontend
+   npm install
+   ```
+
+4. **Start the Application**
+   ```bash
+   # Start backend (from root directory)
+   python start-api-only.py
+   
+   # Start frontend (in new terminal)
    cd frontend
    npm run dev
    ```
+
+5. **Access the platform**
+   - Frontend: http://localhost:3000
+   - API Documentation: http://localhost:8000/docs
+   - Health Check: http://localhost:8000/health
+
+## ✅ Current Features (Working)
+
+### 🛏️ **Bed Management**
+- Real-time bed status tracking (available, occupied, maintenance)
+- Bed allocation by department (ICU, Emergency, General, etc.)
+- Complete CRUD operations (Create, Read, Update, Delete)
+- Bed analytics and occupancy reports
+
+### 👨‍⚕️ **Staff Management** 
+- Staff directory with roles and departments
+- Duty status tracking (on_duty, off_duty, break)
+- Contact information management
+- Staff scheduling and allocation
+
+### 🏥 **Equipment Management**
+- Medical equipment inventory tracking
+- Equipment status monitoring (available, in_use, maintenance)
+- Location and department assignments
+- Usage hours and maintenance scheduling
+
+### 📦 **Supply Management**
+- Medical supplies inventory control
+- Stock level monitoring with alerts
+- Minimum threshold and maximum capacity tracking
+- Supply categories (PPE, Medication, Surgical, etc.)
+- Expiry date management
+
+### 📊 **Analytics Dashboard**
+- Real-time operational overview
+- Key performance indicators (KPIs)
+- Department-wise statistics
+- Resource utilization metrics
+
+### 🔧 **API Features**
+- RESTful API with OpenAPI documentation
+- Health check endpoints
+- CRUD operations for all entities
+- Real-time data synchronization
 
 ## 📊 Features
 
@@ -400,71 +438,93 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **Monitoring**: Prometheus + Grafana
 - **CI/CD**: GitHub Actions
 
-## Project Structure
+## 📁 Project Structure
 
 ```
 Hospital-Operations-Logistics-Agentic-Platform/
-├── docs/                           # Documentation
-│   ├── research/                   # Background research and analysis
-│   ├── requirements/              # Requirements specifications
-│   ├── architecture/              # System architecture documents
-│   └── planning/                  # Project planning documents
-├── src/                           # Source code
+├── 📁 docs/                        # Documentation
+│   ├── research/                   # Background research
+│   ├── requirements/              # Requirements specifications  
+│   ├── architecture/              # System architecture
+│   └── planning/                  # Project planning
+├── 📁 src/                         # Backend source code
 │   ├── agents/                    # AI agent implementations
 │   ├── core/                      # Core platform services
 │   ├── api/                       # REST API endpoints
 │   ├── models/                    # Data models and schemas
 │   └── utils/                     # Utility functions
-├── tests/                         # Test suites
-├── config/                        # Configuration files
-├── scripts/                       # Deployment and utility scripts
-├── frontend/                      # Web application
-└── requirements.txt              # Python dependencies
+├── 📁 frontend/                    # React frontend application
+│   ├── src/                       # Frontend source code
+│   │   ├── components/            # Reusable UI components
+│   │   ├── pages/                 # Main application pages
+│   │   ├── services/              # API service layer
+│   │   └── types/                 # TypeScript type definitions
+│   ├── package.json              # Frontend dependencies
+│   └── vite.config.ts            # Vite configuration
+├── 📁 config/                      # Configuration files
+├── 📁 scripts/                     # Deployment and utility scripts
+├── 📄 requirements.txt             # Python dependencies
+├── 📄 start-api-only.py           # Backend startup script
+├── 📄 .gitignore                  # Git ignore rules
+└── 📄 README.md                   # This file
 ```
 
 ## Quick Start
 
 ### Prerequisites
-- Python 3.11+
-- Docker & Docker Compose
-- Node.js 18+ (for frontend)
-- PostgreSQL 15+
+- Python 3.8+ 
+- Node.js 18+
+- Git
 
-### Installation
+### Installation & Setup
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/your-org/Hospital-Operations-Logistics-Agentic-Platform.git
+   git clone <your-repository-url>
    cd Hospital-Operations-Logistics-Agentic-Platform
    ```
 
-2. **Set up Python environment**
+2. **Backend Setup**
    ```bash
+   # Create and activate virtual environment
    python -m venv venv
-   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   venv\Scripts\activate          # Windows
+   # source venv/bin/activate     # Linux/macOS
+   
+   # Install Python dependencies
    pip install -r requirements.txt
    ```
 
-3. **Configure environment**
+3. **Frontend Setup**
    ```bash
-   cp config/.env.example config/.env
-   # Edit config/.env with your settings
+   cd frontend
+   npm install
+   cd ..
    ```
 
-4. **Start development services**
+4. **Environment Configuration**
    ```bash
-   docker-compose up -d postgres redis kafka
+   # Copy environment template
+   copy .env.example .env          # Windows
+   # cp .env.example .env          # Linux/macOS
+   
+   # Edit .env file with your settings
    ```
 
-5. **Run the application**
+5. **Start the Application**
    ```bash
-   python src/main.py
+   # Terminal 1: Start Backend
+   python start-api-only.py
+   
+   # Terminal 2: Start Frontend  
+   cd frontend
+   npm run dev
    ```
 
-6. **Access the platform**
-   - API Documentation: http://localhost:8000/docs
-   - Web Dashboard: http://localhost:3000
-   - Health Check: http://localhost:8000/health
+6. **Access the Application**
+   - 🌐 **Frontend**: http://localhost:3000
+   - 📡 **API Docs**: http://localhost:8000/docs  
+   - ❤️ **Health Check**: http://localhost:8000/health
 
 ## Development
 
@@ -638,3 +698,34 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ---
 
 **Hospital Operations & Logistics Agentic Platform** - Transforming healthcare operations through intelligent automation.
+
+## 🛠️ Troubleshooting
+
+### Common Issues
+
+**Backend won't start:**
+- ✅ Check Python version: `python --version` (needs 3.8+)
+- ✅ Activate virtual environment: `venv\Scripts\activate`
+- ✅ Install dependencies: `pip install -r requirements.txt`
+- ✅ Check port 8000 is available
+
+**Frontend won't start:**
+- ✅ Check Node.js version: `node --version` (needs 18+)
+- ✅ Install dependencies: `cd frontend && npm install`
+- ✅ Check port 3000 is available
+
+**API endpoints not working:**
+- ✅ Ensure backend is running on http://localhost:8000
+- ✅ Check API documentation at http://localhost:8000/docs
+- ✅ Verify database file exists: `hospital_platform.db`
+
+**Database issues:**
+- ✅ Delete existing database: `del hospital_platform.db` (Windows) / `rm hospital_platform.db` (Linux/macOS)
+- ✅ Restart backend to create fresh database
+
+### Getting Help
+
+- 📚 Check the [Documentation](docs/)
+- 🐛 Report issues on GitHub
+- 💬 Ask questions in Discussions
+- 📧 Contact: support@hospital-platform.com
