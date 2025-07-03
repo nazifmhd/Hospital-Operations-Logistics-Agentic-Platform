@@ -82,7 +82,7 @@ class Settings(BaseSettings):
     
     # CORS Settings
     CORS_ORIGINS: List[str] = Field(
-        default=["http://localhost:3000", "http://localhost:8080"]
+        default=["http://localhost:3000", "http://localhost:3001", "http://localhost:8080"]
     )
     CORS_CREDENTIALS: bool = Field(default=True)
     CORS_METHODS: List[str] = Field(default=["GET", "POST", "PUT", "DELETE", "OPTIONS"])

@@ -9,6 +9,7 @@ import EquipmentPage from './pages/Equipment'
 import StaffPage from './pages/Staff'
 import SuppliesPage from './pages/Supplies'
 import AnalyticsPage from './pages/Analytics'
+import AgentsPage from './pages/Agents'
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="/staff" element={<StaffPage />} />
           <Route path="/supplies" element={<SuppliesPage />} />
           <Route path="/analytics" element={<AnalyticsPage />} />
+          <Route path="/agents" element={<AgentsPage />} />
         </Routes>
       </Layout>
       <Toaster position="top-right" />

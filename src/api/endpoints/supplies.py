@@ -8,6 +8,7 @@ from sqlalchemy.orm import Session
 
 from ...core.database import get_db
 from ...core.crud import supply_crud
+from ...core.models import Supply
 from ...models.supply_models import SupplyItem, SupplyCreate, SupplyUpdate, SupplyResponse
 from ...agents.supply_inventory_agent import SupplyInventoryAgent
 
@@ -142,9 +143,44 @@ async def get_inventory_analytics(
 ):
     """Get inventory analytics."""
     try:
-        # Get inventory analytics from agent
-        analytics = await get_supply_agent().get_inventory_analytics(category=category)
-        return analytics
+        # Build query filters
+        query = db.query(Supply)
+        if category:
+            query = query.filter(Supply.category == category)
+        
+        supplies = query.all()
+        
+        # Calculate inventory metrics
+        total_items = len(supplies)
+        total_stock = sum(s.current_stock for s in supplies)
+        total_value = sum(s.current_stock * s.unit_cost for s in supplies if s.unit_cost)
+        
+        low_stock_items = len([s for s in supplies if s.current_stock <= s.minimum_threshold])
+        out_of_stock = len([s for s in supplies if s.current_stock == 0])
+        
+        # Group by categories
+        category_breakdown = {}
+        for supply in supplies:
+            if supply.category not in category_breakdown:
+                category_breakdown[supply.category] = {
+                    "total_items": 0, 
+                    "total_stock": 0, 
+                    "low_stock": 0
+                }
+            category_breakdown[supply.category]["total_items"] += 1
+            category_breakdown[supply.category]["total_stock"] += supply.current_stock
+            if supply.current_stock <= supply.minimum_threshold:
+                category_breakdown[supply.category]["low_stock"] += 1
+        
+        return {
+            "total_items": total_items,
+            "total_stock": total_stock,
+            "total_value": round(total_value, 2),
+            "low_stock_items": low_stock_items,
+            "out_of_stock": out_of_stock,
+            "category": category,
+            "category_breakdown": category_breakdown
+        }
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Analytics failed: {str(e)}")
 

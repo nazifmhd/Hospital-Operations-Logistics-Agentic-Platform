@@ -8,6 +8,7 @@ from sqlalchemy.orm import Session
 
 from ...core.database import get_db
 from ...core.crud import staff_crud
+from ...core.models import Staff
 from ...models.staff_models import StaffResponse, StaffCreate, StaffUpdate
 from ...agents.staff_allocation_agent import StaffAllocationAgent
 
@@ -158,12 +159,42 @@ async def get_workload_analytics(
 ):
     """Get staff workload analytics."""
     try:
-        # Get workload analytics from agent
-        analytics = await get_staff_agent().get_workload_analytics(
-            department=department,
-            role=role
-        )
-        return analytics
+        # Build query filters
+        query = db.query(Staff)
+        if department:
+            query = query.filter(Staff.department == department)
+        if role:
+            query = query.filter(Staff.role == role)
+        
+        staff_list = query.all()
+        
+        # Calculate workload metrics
+        total_staff = len(staff_list)
+        on_duty = len([s for s in staff_list if s.status == "on_duty"])
+        off_duty = len([s for s in staff_list if s.status == "off_duty"])
+        on_break = len([s for s in staff_list if s.status == "break"])
+        
+        workload_percentage = (on_duty / total_staff * 100) if total_staff > 0 else 0
+        
+        # Group by roles
+        role_breakdown = {}
+        for staff in staff_list:
+            if staff.role not in role_breakdown:
+                role_breakdown[staff.role] = {"total": 0, "on_duty": 0}
+            role_breakdown[staff.role]["total"] += 1
+            if staff.status == "on_duty":
+                role_breakdown[staff.role]["on_duty"] += 1
+        
+        return {
+            "total_staff": total_staff,
+            "on_duty": on_duty,
+            "off_duty": off_duty,
+            "on_break": on_break,
+            "workload_percentage": round(workload_percentage, 2),
+            "department": department,
+            "role": role,
+            "role_breakdown": role_breakdown
+        }
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Analytics failed: {str(e)}")
 

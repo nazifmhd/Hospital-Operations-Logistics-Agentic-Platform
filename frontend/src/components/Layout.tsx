@@ -18,6 +18,7 @@ import {
   People,
   Inventory,
   Analytics,
+  SmartToy,
 } from '@mui/icons-material'
 import { useNavigate, useLocation } from 'react-router-dom'
 
@@ -37,6 +38,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     { text: 'Equipment', icon: <Engineering />, path: '/equipment' },
     { text: 'Staff', icon: <People />, path: '/staff' },
     { text: 'Supplies', icon: <Inventory />, path: '/supplies' },
+    { text: 'Agents', icon: <SmartToy />, path: '/agents' },
     { text: 'Analytics', icon: <Analytics />, path: '/analytics' },
   ]
 
@@ -95,8 +97,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
           flexGrow: 1,
           bgcolor: 'background.default',
           p: 3,
-          ml: `${drawerWidth}px`,
-          mt: '64px', // Height of AppBar
+          mt: '64px', // AppBar height
         }}
       >
         {children}

@@ -8,6 +8,7 @@ from sqlalchemy.orm import Session
 
 from ...core.database import get_db
 from ...core.crud import equipment_crud
+from ...core.models import Equipment as EquipmentModel
 from ...models.equipment_models import Equipment, EquipmentCreate, EquipmentUpdate
 from ...agents.equipment_tracker_agent import EquipmentTrackerAgent
 
@@ -175,12 +176,32 @@ async def get_equipment_utilization(
 ):
     """Get equipment utilization analytics."""
     try:
-        # Get equipment utilization from agent
-        utilization = await get_equipment_agent().get_utilization_analytics(
-            equipment_type=equipment_type,
-            department=department
-        )
-        return utilization
+        # Build query filters
+        query = db.query(EquipmentModel)
+        if equipment_type:
+            query = query.filter(EquipmentModel.equipment_type == equipment_type)
+        if department:
+            query = query.filter(EquipmentModel.department == department)
+        
+        equipment_list = query.all()
+        
+        # Calculate utilization metrics
+        total_equipment = len(equipment_list)
+        in_use = len([e for e in equipment_list if e.status == "in_use"])
+        available = len([e for e in equipment_list if e.status == "available"])
+        maintenance = len([e for e in equipment_list if e.status == "maintenance"])
+        
+        utilization_rate = (in_use / total_equipment * 100) if total_equipment > 0 else 0
+        
+        return {
+            "total_equipment": total_equipment,
+            "in_use": in_use,
+            "available": available,
+            "maintenance": maintenance,
+            "utilization_rate": round(utilization_rate, 2),
+            "department": department,
+            "equipment_type": equipment_type
+        }
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Analytics failed: {str(e)}")
 
